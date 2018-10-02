@@ -1,0 +1,7 @@
+<web-app>
+	<servlet>
+		<servlet-name>Auth</servlet-name>
+		<servlet-class>AuthServlet</servlet-class></servlet>
+	<servlet-mapping>
+		<servlet-name>Auth</servlet-name>
+		<url-pattern>/auth</url-pattern></servlet-mapping></web-app>

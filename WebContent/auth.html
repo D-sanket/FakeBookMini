@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Auth | FakeBookMini</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
+    
+</head>
+<body>
+
+<!-- Header -->
+<nav class="blue">
+    <div class="nav-wrapper">
+      <a href="./" class="brand-logo"> &nbsp; &nbsp; FakeBook.<small><small>mini</small></small></a>
+    </div>
+  </nav>
+<!--  /Header  -->  
+
+<!--  Form -->
+
+<div class="row">
+	<div class="card col s12 m6 l4 offset-m3 offset-l4" style="margin-top: 2rem;">
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a href="#login" class="active">Login</a></li>
+        <li class="tab"><a href="#register" class="">Register</a></li>
+      </ul>
+    </div>
+    <div class="card-content">
+      	<div id="login">
+			<div class="row">
+			    <form class="col s12" name="log_form" method="POST">
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <input id="log_email" name="email" type="email" class="validate">
+			          <label for="log_email">Email</label>
+			        </div>
+			      </div>
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <input id="log_password" name="password" type="password" class="validate">
+			          <label for="log_password">Password</label>
+			        </div>
+			      </div>
+			      <div class="row">
+			      	<div class="input-field col s12">
+			         <input id="login" type="submit" name="submit" value="login" class="btn btn-flat blue white-text">
+			        </div>
+			      </div>
+			    </form>
+			</div>
+		</div>
+      	<div id="register">
+			<div class="row">
+			    <form class="col s12" name="reg_form" method="POST">
+			      <div class="row">
+				        <div class="input-field col s12">
+				          <input id="reg_name" name="name" type="text" class="validate">
+				          <label for="reg_name">Full name</label>
+				        </div>
+				  </div>
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <input id="reg_email" name="email" type="email" class="validate">
+			          <label for="reg_email">Email</label>
+			        </div>
+			      </div>
+			      <div class="row">
+			        <div class="input-field col s12">
+			          <input id="reg_password" name="password" type="password" class="validate">
+			          <label for="reg_password">Password</label>
+			        </div>
+			      </div>
+			      <div class="row">
+			      	<div class="input-field col s12">
+			         <input id="register" type="submit" name="submit" value="register" class="btn btn-flat blue white-text">
+			        </div>
+			      </div>
+			    </form>
+			</div>
+		</div>
+    </div>
+  </div>
+</div>
+
+<!-- /Form -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="./js/scripts.js"></script>
+<script>
+	M.AutoInit();
+</script>
+</body>
+</html>
