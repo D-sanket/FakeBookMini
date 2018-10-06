@@ -6,6 +6,17 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="./css/styles.css" rel="stylesheet">
+    <script>
+    	var href = window.location.href;
+    	var requestedPath = href.substr(href.lastIndexOf('/')+1);
+    	var isHTML = (requestedPath.lastIndexOf('.'));
+    	
+    	if(isHTML != -1){
+    		window.location = "./"+requestedPath.substr(0, requestedPath.lastIndexOf('.'));
+    	}
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
 </head>
 <body>
@@ -31,16 +42,16 @@
     <div class="card-content">
       	<div id="login">
 			<div class="row">
-			    <form class="col s12" name="log_form" method="POST">
+			    <form class="col s12" name="log_form" method="POST" action="./auth">
 			      <div class="row">
 			        <div class="input-field col s12">
-			          <input id="log_email" name="email" type="email" class="validate">
+			          <input id="log_email" name="email" type="email" class="validate" value="2016bcs106@sggs.ac.in">
 			          <label for="log_email">Email</label>
 			        </div>
 			      </div>
 			      <div class="row">
 			        <div class="input-field col s12">
-			          <input id="log_password" name="password" type="password" class="validate">
+			          <input id="log_password" name="password" type="password" class="validate" value="sanket">
 			          <label for="log_password">Password</label>
 			        </div>
 			      </div>
@@ -54,7 +65,7 @@
 		</div>
       	<div id="register">
 			<div class="row">
-			    <form class="col s12" name="reg_form" method="POST">
+			    <form class="col s12" name="reg_form" method="POST" action="./auth">
 			      <div class="row">
 				        <div class="input-field col s12">
 				          <input id="reg_name" name="name" type="text" class="validate">
@@ -88,12 +99,48 @@
 <!-- /Form -->
 
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js""></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="./js/scripts.js"></script>
 <script>
 	M.AutoInit();
+	
+	var urlParams = new URLSearchParams(window.location.search);
+	var err = parseInt(urlParams.get('e'));
+	
+	if(err){
+		switch(err){
+		case 1:
+			M.toast({html:"Enter your email & password!"});
+			break;
+		case 2:
+			M.toast({html:"Enter your password!"});
+			break;
+		case 3:
+			M.toast({html:"Enter your email!"});
+			break;
+		case 4:
+			M.toast({html:"All fields are mandatory!"});
+			break;
+		case 5:
+			M.toast({html:"Email already taken!"});
+			break;
+		case 6:
+			M.toast({html:"Registered successfully!"});
+			break;
+		case 7:
+			M.toast({html:"Invalid username or password!"});
+			break;	
+		default:
+			M.toast({html:"Something went wrong!"});
+		}
+	}
+	
+	
+
+	var hash = window.location.hash;
+	
+	//$(".tab > a[href='#'"+hash+"]").click();
+	
+	
 </script>
 </body>
 </html>

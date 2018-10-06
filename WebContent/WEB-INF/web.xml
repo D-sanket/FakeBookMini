@@ -1,7 +1,76 @@
 <web-app>
 	<servlet>
 		<servlet-name>Auth</servlet-name>
-		<servlet-class>AuthServlet</servlet-class></servlet>
+		<servlet-class>AuthServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Auth</servlet-name>
-		<url-pattern>/auth</url-pattern></servlet-mapping></web-app>
+		<url-pattern>/auth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Dashboard</servlet-name>
+		<servlet-class>DashboardServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Dashboard</servlet-name>
+		<url-pattern>/dashboard</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Search</servlet-name>
+		<servlet-class>SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Search</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddFriend</servlet-name>
+		<servlet-class>AddFriendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddFriend</servlet-name>
+		<url-pattern>/addFriend</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>CancelRequest</servlet-name>
+		<servlet-class>CancelRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelRequest</servlet-name>
+		<url-pattern>/cancelRequest</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>ConfirmRequest</servlet-name>
+		<servlet-class>ConfirmRequestServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConfirmRequest</servlet-name>
+		<url-pattern>/confirmRequest</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Unfriend</servlet-name>
+		<servlet-class>UnfriendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Unfriend</servlet-name>
+		<url-pattern>/unfriend</url-pattern>
+	</servlet-mapping>	
+	
+	
+</web-app>
+	
