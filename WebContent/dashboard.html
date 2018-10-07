@@ -199,9 +199,9 @@
 	</div>
 	
 	<div class="profile-bubble bubble me" style="top: 12.5rem;">Profile edit option will be shown here..</div>
-	<div class="message-bubble bubble me" style="top: 15rem;">No messages yet.</div>
-	<div class="notifications-bubble bubble me" style="top: 17.5rem;">Notifications will be shown here..</div>
-	<div class="requests-bubble bubble me" style="top: 20rem;">Friend requests will be shown here..</div>
+	<!-- div class="message-bubble bubble me" style="top: 15rem;">No messages yet.</div -->
+	<div class="notifications-bubble bubble me" style="top: 15rem;">Notifications will be shown here..</div>
+	<div class="requests-bubble bubble me" style="top: 17.5rem;">Friend requests will be shown here..</div>
 <!-- /Overlay -->
 
 <!-- Content -->
@@ -220,10 +220,10 @@
 					<a href="javascript:editProfile()" class="right link"><i class="material-icons">account_circle</i> &nbsp; Edit Profile</a> 
 					
 					<br>
-					<a href="javascript:showMessages()" class="right link"><i class="material-icons">chat_bubble</i> &nbsp; Messages</a> 
+					<!-- a href="javascript:showMessages()" class="right link"><i class="material-icons">chat_bubble</i> &nbsp; Messages</a> 
 					
 			        
-					<br>
+					<br -->
 					<a href="javascript:showNotifications()" class="right link"><i class="material-icons">notifications</i> &nbsp; Notifications &nbsp; <span class="notifications-count"></span></a> 
 					
 					
@@ -309,11 +309,13 @@ function editProfile(){
 	$(".overlay").toggleClass("active");
 }
 
+/*
 function showMessages(){
 	$(".bubble").removeClass("active").addClass("hide");
 	$(".message-bubble").toggleClass("hide active");
 	$(".overlay").toggleClass("active");
 }
+*/
 
 function showRequests(){
 	$(".bubble").removeClass("active").addClass("hide");
