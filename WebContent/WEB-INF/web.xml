@@ -134,6 +134,44 @@
 		<url-pattern>/requests</url-pattern>
 	</servlet-mapping>	
 	
+	<servlet>
+		<servlet-name>GetPost</servlet-name>
+		<servlet-class>GetPostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPost</servlet-name>
+		<url-pattern>/getPost</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Reply</servlet-name>
+		<servlet-class>ReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Reply</servlet-name>
+		<url-pattern>/reply</url-pattern>
+	</servlet-mapping>	
+	
+	
+	<servlet>
+		<servlet-name>FetchReply</servlet-name>
+		<servlet-class>FetchReplyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FetchReply</servlet-name>
+		<url-pattern>/getReplies</url-pattern>
+	</servlet-mapping>	
+	
+	
+	<servlet>
+		<servlet-name>ReadNotification</servlet-name>
+		<servlet-class>ReadNotificationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReadNotification</servlet-name>
+		<url-pattern>/readNotification</url-pattern>
+	</servlet-mapping>	
+	
 	
 </web-app>
 	

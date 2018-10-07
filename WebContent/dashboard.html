@@ -132,8 +132,39 @@
 	background: rgba(0, 0, 0, 0.05);
 }
 
+.sidenav{
+	height: 100%;
+	width: 500px !important;
+}
 
+#opened-post{
+	padding: 0.5rem !important;
+}
 
+.active-post{
+	padding: 0.5rem;
+}
+
+.comment{
+	padding: 0.5rem;
+	background: #e3f2fd;
+	margin-top: 0.5rem !important;
+	background-opacity: 0.3;
+}
+
+.comment *{
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.replies-container{
+	padding-bottom: 5rem;
+	overflow-y: scroll;
+}
+
+#reply-box{
+	background: white;
+}
     </style>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -174,19 +205,18 @@
  
  <a href="#" data-target="slide-out" class="sidenav-trigger hide" id="side-nav-trigger"><i class="material-icons">menu</i></a>
  <ul id="slide-out" class="sidenav" data-edge="right">
-    <li><div class="user-view">
-      <div class="background">
-        <img src="images/office.jpg">
-      </div>
-      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
-      <a href="#name"><span class="white-text name">John Doe</span></a>
-      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-    </div></li>
-    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-    <li><a href="#!">Second Link</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    <li id="opened-post">
+    	post
+    </li>
+    
+    <div data-post-id="" id='reply-box' style="width: 100%;">
+    	<div class="row">
+	        <div class="input-field col s12">
+	          <input id="reply" type="text" class="validate">
+	          <label for="reply">Type your reply here..</label>
+	        </div>
+	      </div>
+    </div>
   </ul>
   
 <!-- /SideNav -->  
@@ -200,8 +230,8 @@
 	
 	<div class="profile-bubble bubble me" style="top: 12.5rem;">Profile edit option will be shown here..</div>
 	<!-- div class="message-bubble bubble me" style="top: 15rem;">No messages yet.</div -->
-	<div class="notifications-bubble bubble me" style="top: 15rem;">Notifications will be shown here..</div>
-	<div class="requests-bubble bubble me" style="top: 17.5rem;">Friend requests will be shown here..</div>
+	<div class="notifications-bubble bubble me" style="top: 15rem;">No new notifications.</div>
+	<div class="requests-bubble bubble me" style="top: 17.5rem;">No new requests.</div>
 <!-- /Overlay -->
 
 <!-- Content -->
@@ -228,7 +258,7 @@
 					
 					
 					<br>
-					<a href="javascript:showRequests()" class="right link"><i class="material-icons">person_add</i> &nbsp; Friend Requests &nbsp; <span class="requests-count"></span></a> <br>
+					<a href="javascript:showRequests()" class="right link"><i class="material-icons">person_add</i> &nbsp; Requests &nbsp; <span class="requests-count"></span></a> <br>
 					
 				</div>
 			</div>
@@ -283,6 +313,45 @@ $(".overlay").click(function(){
 		$(".bubble").removeClass("active").addClass("hide");
 	});
 	
+$(window).click(function(e){
+	if($(e.target).parents(".sidenav").length == 0 && !$(e.target).hasClass("sidenav"))
+		closeSideNav();
+});	
+	
+$("#reply-box #reply").keyup(function(e){
+	if(e.keyCode == 13){
+		var content = $("#reply-box #reply").val();
+		var post_id = $("#reply-box").attr("data-post-id");
+		if(content.length < 5){
+			M.toast({html: "Comment must be of atleast 5 characters."});
+			return;
+		}
+		
+		$("#reply-box #reply").val("").addClass("disabled");
+		
+		$.ajax({
+			url: './reply',
+			type: "POST",
+			data: { post_id: post_id, content: content },
+			success: function(response){
+				if(response == ""){
+					fetchReplies(post_id);
+				}
+				else{
+					M.toast({html: response });
+					$("#reply-box #reply").val(content);
+				}
+				$("#reply-box #reply").removeClass("disabled");
+			}, 
+			error: function(err){
+				M.toast({html: "Something went wrong!"});
+				$("#reply-box #reply").val(content).removeClass("disabled");
+			}
+		});
+		
+	}
+});
+	
 var elems = document.querySelectorAll('.sidenav');
 var instances = M.Sidenav.init(elems, { edge: 'right' } );	
 
@@ -296,11 +365,100 @@ fetchPosts();
 fetchNotifications();
 fetchRequests();
 
+setInterval(function(){
+	fetchPosts();
+	fetchNotifications();
+	fetchRequests();
+	
+	var opened_post_id = $("#reply-box").attr("data-post-id");
+	
+	if(opened_post_id){
+		fetchReplies(opened_post_id);
+	}
+	
+}, 5000);
+
 function openSideNav(){
 	var elem = document.querySelector(".sidenav");
 	var instance = M.Sidenav.getInstance(elem);
 	
 	instance.open();
+	$(".sidenav-overlay").hide();
+}
+
+function closeSideNav(){
+	var elem = document.querySelector(".sidenav");
+	var instance = M.Sidenav.getInstance(elem);
+	
+	instance.close();
+	//$(".sidenav-overlay").hide();
+}
+
+function readNotification(post_id, notification_id){
+	$(".overlay").removeClass("active");
+	$(".bubble").removeClass("active").addClass("hide");
+	
+	openPost(post_id);
+	
+	$.ajax({
+		url: './readNotification',
+		type: "POST",
+		data: { notification_id: notification_id },
+		success: function(response){
+			
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+function openPost(post_id){
+	$("#opened-post").html($(".preloader-hidden").clone().removeClass("preloader-hidden hide").css({height: window.innerHeight, display: "flex", alignItems: "center", justifyContent: "center"}));
+	//$("#searchResults").html($(".preloader-hidden").clone().removeClass("preloader-hidden hide"));
+	
+	$("#reply-box").attr("data-post-id", post_id);
+	
+	openSideNav();
+	getPost(post_id);
+}
+
+function fetchReplies(post_id){
+	$.ajax({
+		url: './getReplies',
+		type: "POST",
+		data: { post_id: post_id },
+		success: function(response){
+			if(response == ""){
+				
+			}
+			else{
+				$(".replies-container").html(response);
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+function getPost(post_id){
+	$.ajax({
+		url: './getPost',
+		type: "POST",
+		data: { post_id: post_id },
+		success: function(response){
+			if(response == ""){
+				M.toast({html: "Something went wrong!"});
+			}
+			else{
+				$("#opened-post").html(response);
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
 }
 
 function editProfile(){

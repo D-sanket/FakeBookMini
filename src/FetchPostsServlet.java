@@ -91,7 +91,7 @@ public class FetchPostsServlet extends HttpServlet {
 						result += "<div class=''>";
 						result += "<a href="+(liked ? "'javascript:unlikePost("+rs2.getInt("id")+")'" : "'javascript:likePost("+rs2.getInt("id")+")'")+" id='likeBtn_"+rs2.getInt("id")+"' class='likes "+(liked ? "liked" : "")+"'>Likes ("+likes+") </a>";
 						result += "<span class='text-lighten-2 grey-text'> | </span>";
-						result += "<a href='javascript:void(0)' class='comments'>Comments ("+comments+") </a>";
+						result += "<a href='javascript:openPost("+rs2.getInt("id")+")' class='comments'>Comments ("+comments+") </a>";
 						result += "</div>";
 						result += "</div>";
 					}
@@ -130,7 +130,7 @@ public class FetchPostsServlet extends HttpServlet {
 					result += "<div class=''>";
 					result += "<a href="+(liked ? "'javascript:unlikePost("+rs2.getInt("id")+")'" : "'javascript:likePost("+rs2.getInt("id")+")'")+" id='likeBtn_"+rs2.getInt("id")+"' class='likes "+(liked ? "liked" : "")+"'>Likes ("+likes+") </a>";
 					result += "<span class='text-lighten-2 grey-text'> | </span>";
-					result += "<a href='javascript:void(0)' class='comments'>Comments ("+comments+") </a>";
+					result += "<a href='javascript:openPost("+rs2.getInt("id")+")' class='comments'>Comments ("+comments+") </a>";
 					result += "</div>";
 					result += "</div>";
 				}

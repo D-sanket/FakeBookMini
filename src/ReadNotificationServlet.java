@@ -4,7 +4,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.Calendar;
 
-public class UnreadNotificationsServlet extends HttpServlet {
+public class ReadNotificationServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.setContentType("text/html");
@@ -26,24 +26,14 @@ public class UnreadNotificationsServlet extends HttpServlet {
 				Connection conn = DriverManager.getConnection(url, user, pass);
 				
 				int user_id = Integer.parseInt(request.getSession(false).getAttribute("user_id").toString());
-				
-				String query = "SELECT * FROM notifications WHERE user_id = ? AND is_deleted = 0 AND is_read = 0 ORDER BY id DESC";
+				int notification_id = Integer.parseInt(request.getParameter("notification_id"));
+				String query = "UPDATE notifications SET is_read = 1 WHERE id = ?";
 				
 				PreparedStatement ps = conn.prepareStatement(query);
 				
-				ps.setInt(1, user_id);
+				ps.setInt(1, notification_id);
 				
-				ResultSet rs = ps.executeQuery();
-				
-				while(rs.next()) {
-					pw.println("<a class='notification' href='"+"javascript:readNotification("+rs.getInt("post_id")+", "+rs.getInt("id")+")"+"'>");
-					if(rs.getInt("type") == Notifier.NEW_LIKE)
-						pw.println("<i class='tiny material-icons'>thumb_up</i>");
-					else if(rs.getInt("type") == Notifier.NEW_REPLY)
-						pw.println("<i class='tiny material-icons'>chat</i>");
-					pw.println(rs.getString("title"));
-					pw.println("</a>");
-				}
+				ps.executeUpdate();
 				
 				pw.close();
 				conn.close();

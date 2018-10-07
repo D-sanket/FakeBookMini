@@ -4,7 +4,7 @@ import javax.servlet.http.*;
 import java.sql.*;
 import java.util.Calendar;
 
-public class UnreadNotificationsServlet extends HttpServlet {
+public class ReplyServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.setContentType("text/html");
@@ -12,7 +12,7 @@ public class UnreadNotificationsServlet extends HttpServlet {
 			PrintWriter pw = response.getWriter();
 			
 			if(request.getSession(false) == null) {
-				pw.println("");
+				pw.println("Something went wrong");
 				return;
 			}
 			else {
@@ -26,23 +26,32 @@ public class UnreadNotificationsServlet extends HttpServlet {
 				Connection conn = DriverManager.getConnection(url, user, pass);
 				
 				int user_id = Integer.parseInt(request.getSession(false).getAttribute("user_id").toString());
+				int post_id = Integer.parseInt(request.getParameter("post_id"));
+				String content = request.getParameter("content");
 				
-				String query = "SELECT * FROM notifications WHERE user_id = ? AND is_deleted = 0 AND is_read = 0 ORDER BY id DESC";
+				String query = "INSERT INTO replies (user_id, post_id, content, replied_at) VALUES (?, ?, ?, ?)";
+				
 				
 				PreparedStatement ps = conn.prepareStatement(query);
 				
 				ps.setInt(1, user_id);
+				ps.setInt(2, post_id);
+				ps.setString(3, content);
 				
-				ResultSet rs = ps.executeQuery();
+				Calendar c = Calendar.getInstance();
+				int h = c.get(Calendar.HOUR_OF_DAY);
+				int m = c.get(Calendar.MINUTE);
+				int s = c.get(Calendar.SECOND);
+				int Y = c.get(Calendar.YEAR);
+				int M = c.get(Calendar.MONTH);
+				int D = c.get(Calendar.DAY_OF_MONTH);
 				
-				while(rs.next()) {
-					pw.println("<a class='notification' href='"+"javascript:readNotification("+rs.getInt("post_id")+", "+rs.getInt("id")+")"+"'>");
-					if(rs.getInt("type") == Notifier.NEW_LIKE)
-						pw.println("<i class='tiny material-icons'>thumb_up</i>");
-					else if(rs.getInt("type") == Notifier.NEW_REPLY)
-						pw.println("<i class='tiny material-icons'>chat</i>");
-					pw.println(rs.getString("title"));
-					pw.println("</a>");
+				String date = Y+"-"+(M > 9 ? M : "0"+M)+"-"+(D > 9 ? D : "0"+D)+" "+(h > 9 ? h : "0"+h)+":"+(m > 9 ? m : "0"+m)+":"+(s > 9 ? s : "0"+s);
+				
+				ps.setString(4, date);
+				
+				if(ps.executeUpdate() == 0) {
+					pw.println("Something went wrong!");
 				}
 				
 				pw.close();
