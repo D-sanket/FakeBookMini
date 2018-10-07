@@ -70,10 +70,10 @@ public class SearchServlet extends HttpServlet {
 				  
 				  pw.println("<div class='row'>");
 				  pw.println("<div class='search-result-item first col s12'>");
-				  pw.println("<div class='detail col s9'>");
+				  pw.println("<div class='detail col s8'>");
 				  pw.println("<b class='blue-grey-text text-darken-3'>"+rs.getString("name")+"</b>");
 				  pw.println("</div>");
-				  pw.println("<div class='action col s3'>");
+				  pw.println("<div class='action col s4'>");
 				  if(!is_requested)
 					  pw.println("<a id='btn"+count+"' href=\"javascript:addFriend("+rs.getInt("id")+", "+count+")\" class='btn btn-flat btn-request'><i class='material-icons'>person_add</i></a>");
 				  else if(did_request && !is_confirmed)
@@ -121,10 +121,10 @@ public class SearchServlet extends HttpServlet {
 					  
 					  pw.println("<div class='row'>");
 					  pw.println("<div class='search-result-item first col s12'>");
-					  pw.println("<div class='detail col s9'>");
+					  pw.println("<div class='detail col s8'>");
 					  pw.println("<b class='blue-grey-text text-darken-3'>"+rs.getString("name")+"</b>");
 					  pw.println("</div>");
-					  pw.println("<div class='action col s3'>");
+					  pw.println("<div class='action col s4'>");
 					  if(!is_requested)
 						  pw.println("<a id='btn"+count+"' href=\"javascript:addFriend("+rs.getInt("id")+", "+count+")\" class='btn btn-flat btn-request'><i class='material-icons'>person_add</i></a>");
 					  else if(did_request && !is_confirmed)

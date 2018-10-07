@@ -3,9 +3,10 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<title>Dashboard | FakeBookMini</title>
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="./css/styles.css" rel="stylesheet">
+    <link href="https://rawgit.com/D-sanket/508292db118d4db9745534087cdc3026/raw/0c752843e9262f26a2cd0b375e5a9b9833faf86b/styles.css" rel="stylesheet">
     <script>
     	var href = window.location.href;
     	var requestedPath = href.substr(href.lastIndexOf('/')+1);
@@ -16,77 +17,137 @@
     	}
     </script>
     <style>
-    	#searchResults{
-			box-shadow: 1px 1px 2px lightgrey, -1px -1px 2px lightgrey;
-			position: fixed;
-			right: 0;
-			padding: 0.5rem 1rem !important;
-			border-radius: 0.5rem;
-			margin: 0.5rem;
-			width: 33% !important;
-			background: #ffffff;
-		}
-		
-		#searchResults.active{
-			z-index: 101;
-		}
-		
-		.overlay{
-			position: fixed;
-			height: 100%;
-			width: 100%;
-			top: 0;
-			left: 0;
-			z-index: -1;
-			opacity: 0;
-			background: rgba(0, 0, 0, 0.3);
+    	.main{
+			margin-left: 27%;	
+			width: 73%;
+			word-break: break-all;
 			transition-duration: 0.3s;
 		}
 		
-		.overlay.active{
-			z-index: 100;
+		.main.inactive > *{
+			background: rgba(0, 0, 0, 0.1);
+		}
+		
+				.bubble{
+		    background-color: #FFFFFF;
+		    border-radius: 5px;
+		    box-shadow: 0 0 6px #B2B2B2;
+		    display: inline-block;
+		    padding: 10px 18px;
+		    position: fixed;
+		    left: 25%;
+		    vertical-align: top;
+		    width: 300px;
+		    z-index: -1;
+		    opacity: 0;
+		    transition-duration: 0.3s;
+		}
+		
+		.bubble::before {
+		    background-color: #FFFFFF;
+		    content: "\00a0";
+		    display: block;
+		    height: 16px;
+		    position: absolute;
+		    top: 11px;
+		    transform:             rotate( 29deg ) skew( -35deg );
+		        -moz-transform:    rotate( 29deg ) skew( -35deg );
+		        -ms-transform:     rotate( 29deg ) skew( -35deg );
+		        -o-transform:      rotate( 29deg ) skew( -35deg );
+		        -webkit-transform: rotate( 29deg ) skew( -35deg );
+		    width:  20px;
+		}
+		
+		.me {
+		    float: left;   
+		    margin: 5px 45px 5px 20px;         
+		}
+		
+		.me::before {
+		    box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+		    left: -9px;           
+		}
+		
+		.you {
+		    float: right;    
+		    margin: 5px 20px 5px 45px;         
+		}
+		
+		.you::before {
+		    box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+		    right: -9px;    
+		}
+		
+		.bubble.active{
+			z-index: 1001 !important;
 			opacity: 1;
 		}
 		
-		.search-result-item > .action > .btn > i{
-			color: #2196f3;
+		@media screen and (min-width: 990px){
+			.main{
+				margin-left: 25%;
+				width: 75%;	
+			}
+			
+			.bubble{
+				left: 32%;
+			}
 		}
 		
-		.search-result-item > .action > .btn.disabled > i{
-			color: lightgrey;
+		.post-field-container{
+			padding: 0.5rem 2rem !important;
 		}
 		
-		.btn:hover{
-			background: #2196f3 !important;
-		}
-		
-		.btn:hover > i{
-			color: white !important;
-		}
-		
-		.search-result-item.first{
+		.post-field-container > div{
 			border: 1px solid lightgrey;
+			border-radius: 0.25rem;
 		}
 		
-		.search-result-item{
-			border: 1px solid lightgrey;
-			border-top: none;
+		.post{
+			padding: 1rem;
+			box-shadow: 1px 1px 2px lightgrey, -1px 1px 2px lightgrey;
+			border-radius: 0.25rem;
+			margin: 0.5rem;
 		}
 		
-    	
+		.liked{
+			font-weight: 700;
+		}
+		
+
+
+.notification{
+	display: block;
+	border-top: 1px solid lightgrey;
+	padding: 0.5rem;
+	height: 3.5rem;
+	transition-duration: 0.3s;
+}
+
+.notification:first-of-type{
+	border-top: none;
+}
+
+.notification:hover{
+	background: rgba(0, 0, 0, 0.05);
+}
+
+
+
     </style>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js""></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
    
 </head>
 <body>
 
 <!-- Header -->
-<nav class="blue">
+<div class="navbar-fixed">
+	<nav class="blue">
     <div class="nav-wrapper">
-      <a href="./" class="brand-logo"> &nbsp; &nbsp; FakeBook.<small><small>mini</small></small></a>
+      <a href="./" class="brand-logo left" style="left: 10px !important;"> &nbsp; &nbsp; FakeBook.<small><small>mini</small></small></a>
       
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <ul id="nav-mobile" class="right hide-on-small-only">
       	<li>
       		<div class="input-field col s6">
 	          <i class="material-icons prefix" style="color: white;">search</i>
@@ -104,15 +165,95 @@
 				<input type="submit" name="logout" value="logout" class="btn btn-flat blue white-text">
 			</form>
 		</li>
+		
       </ul>
     </div>
  </nav>
+ 
+ <!-- SideNav -->
+ 
+ <a href="#" data-target="slide-out" class="sidenav-trigger hide" id="side-nav-trigger"><i class="material-icons">menu</i></a>
+ <ul id="slide-out" class="sidenav" data-edge="right">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="images/yuna.jpg"></a>
+      <a href="#name"><span class="white-text name">John Doe</span></a>
+      <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+    <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#!">Second Link</a></li>
+    <li><div class="divider"></div></li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+  </ul>
+  
+<!-- /SideNav -->  
+  
+</div>
 <!--  /Header  -->  
 
 <!-- Overlay -->
 	<div class="overlay">
 	</div>
+	
+	<div class="profile-bubble bubble me" style="top: 12.5rem;">Profile edit option will be shown here..</div>
+	<div class="message-bubble bubble me" style="top: 15rem;">No messages yet.</div>
+	<div class="notifications-bubble bubble me" style="top: 17.5rem;">Notifications will be shown here..</div>
+	<div class="requests-bubble bubble me" style="top: 20rem;">Friend requests will be shown here..</div>
 <!-- /Overlay -->
+
+<!-- Content -->
+	<div class="row">
+		<div class="col s12 m12 l8 offset-l2">
+			<div class="navigation">
+				
+				<div class="info">
+					<div class="name"></div>
+					<div class="email"></div>
+				</div>
+				<br>
+				<div class="divider"></div>
+				<br>
+				<div class="links">
+					<a href="javascript:editProfile()" class="right link"><i class="material-icons">account_circle</i> &nbsp; Edit Profile</a> 
+					
+					<br>
+					<a href="javascript:showMessages()" class="right link"><i class="material-icons">chat_bubble</i> &nbsp; Messages</a> 
+					
+			        
+					<br>
+					<a href="javascript:showNotifications()" class="right link"><i class="material-icons">notifications</i> &nbsp; Notifications &nbsp; <span class="notifications-count"></span></a> 
+					
+					
+					<br>
+					<a href="javascript:showRequests()" class="right link"><i class="material-icons">person_add</i> &nbsp; Friend Requests &nbsp; <span class="requests-count"></span></a> <br>
+					
+				</div>
+			</div>
+			<div class="main">
+				<div class="row">
+					<div class="col s12 post-field-container">
+					    <div class="row">
+					      <div class="input-field col s12">
+				            <textarea id="post-box" class="materialize-textarea" data-length="1000"></textarea>
+					        <label for="post-box">Status</label>
+					    	</div>
+				            <div class="input-field col s12">
+				            	<a id="submit-post-btn" class="btn btn-flat white-text blue right" href="javascript:submitPost()">Submit</a>
+					        </div>
+					    </div>
+			        </div>
+			        <div class="col s12" id="posts-container">
+			        	
+			        </div>
+			        
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- /Content -->
 
 
 <!-- Preloader -->
@@ -131,155 +272,234 @@
 	</div>
 <!-- /Preloader -->
 
-<script src="./js/scripts.js"></script>
+<script src="https://rawgit.com/D-sanket/19368e73bba6edae748a9439d7063b8d/raw/e906e88be8d183c1908ba823e0a48cc97625ccf8/scripts.js"></script>
+<script src="https://cdn.rawgit.com/D-sanket/1b2fe19fb8b3b6dcb251456324e5df0d/raw/713f17bdf2f44b1ae0c6320e8ea474abfd58201d/post.js"></script>
 <script>
-	M.AutoInit();
-	var timeout = null;
-	
-	
-	$(".overlay").click(function(){
+$('#post-box').characterCounter()
+
+$(".overlay").click(function(){
 		$(".overlay").removeClass('active');
 		$("#searchResults").addClass("hide").removeClass('active').html("");
+		$(".bubble").removeClass("active").addClass("hide");
 	});
 	
-	function delayAndCall(func, delay){
-		setTimeout(func, delay);
-	}
+var elems = document.querySelectorAll('.sidenav');
+var instances = M.Sidenav.init(elems, { edge: 'right' } );	
+
+var lastPostId = 0;
+
+function makePost(jsonData){
 	
-	function search(){
-		clearTimeout(timeout);
-		$(".overlay").addClass('active');
-		$("#searchResults").removeClass("hide").addClass('active').html($(".preloader-hidden").clone().removeClass("preloader-hidden hide"));
-		
-		timeout = setTimeout(function(){
-			var q = $("#search").val();
-			
-			if(q.length <= 0){
-				$("#searchResults").html("<div class='center'>No results found!</div>");
+}
+
+fetchPosts();
+fetchNotifications();
+fetchRequests();
+
+function openSideNav(){
+	var elem = document.querySelector(".sidenav");
+	var instance = M.Sidenav.getInstance(elem);
+	
+	instance.open();
+}
+
+function editProfile(){
+	$(".bubble").removeClass("active").addClass("hide");
+	$(".profile-bubble").toggleClass("hide active");
+	$(".overlay").toggleClass("active");
+}
+
+function showMessages(){
+	$(".bubble").removeClass("active").addClass("hide");
+	$(".message-bubble").toggleClass("hide active");
+	$(".overlay").toggleClass("active");
+}
+
+function showRequests(){
+	$(".bubble").removeClass("active").addClass("hide");
+	$(".requests-bubble").toggleClass("hide active");
+	$(".overlay").toggleClass("active");
+}
+
+function showNotifications(){
+	$(".bubble").removeClass("active").addClass("hide");
+	$(".notifications-bubble").toggleClass("hide active");
+	$(".overlay").toggleClass("active");
+}
+
+function submitPost(){
+	var content = $('#post-box').val();
+	
+	$("#submit-post-btn").addClass("disabled");
+	setTimeout(function(){
+		$.ajax({
+			url: './post',
+			type: "POST",
+			data: { content: content },
+			success: function(response){
+				if(response != ""){
+					M.toast({html: response});
+				}
+				else{
+					M.toast({html: "Submitted"});
+					$('#post-box').val("");
+					fetchPosts();
+				}
+				$("#submit-post-btn").removeClass("disabled");
+			}, 
+			error: function(err){
+				M.toast({html: "Something went wrong!"});
+				$("#submit-post-btn").removeClass("disabled");
 			}
-			else{
-				$.ajax({
-					url: './search',
-					type: "POST",
-					data: { q: q},
-					success: function(response){
-						if(response.length <= 0)
-							$("#searchResults").html("<div class='center'>No results found!</div>");
-						else
-							$("#searchResults").html(response);
-					},
-					error: function(err){
-						M.toast({html: err.statusText});
+		});
+	}, 1000);
+}
+
+function acceptRequest(user_id, req_id){
+	
+	$("#request_"+req_id).addClass('disabled');
+	
+	setTimeout(function(){
+		$.ajax({
+			url: './confirmRequest',
+			type: 'POST',
+			data: { user_id: user_id },
+			success: function(response){
+				if(response == ""){
+					if($(".request").length == 1){
+						$(".requests-bubble").html("No new requests.");
 					}
+					else{
+						$("#request_"+req_id).slideUp(300);
+					}
+				}
+				else{
+					$("#request_"+req_id).removeClass('disabled');
+					M.toast({html: response});
+				}
+				console.log(response);
+			},
+			error: function(err){
+				console.log(err);
+			}
+		});
+	}, 2000);
+}
+
+function fetchPosts(){
+	$.ajax({
+		url: './fetchPosts',
+		type: "POST",
+		data: { lastPostId: lastPostId },
+		success: function(response){
+			
+			$("#posts-container").prepend(response);
+			
+			if($("#posts-container .post").length > 0){
+				$("#posts-container .post").each(function(){
+					lastPostId = parseInt($(this).attr("data-post-id")) > lastPostId ? parseInt($(this).attr("data-post-id")) : lastPostId ;
 				});
 			}
-		}, 500);
-	}
-	
-	function addFriend(user_id, btn_id){
-		
-		$("#btn"+btn_id).addClass('disabled');
-		
-		setTimeout(function(){
-			$.ajax({
-				url: './addFriend',
-				type: 'POST',
-				data: { user_id: user_id },
-				success: function(response){
-					if(response == ""){
-						//$("#btn"+btn_id+" i").html('done');
-						$("#btn"+btn_id).attr("href", "javascript:cancelRequest('"+user_id+"', '"+btn_id+"')").removeClass('disabled');
-						$("#btn"+btn_id+" i").html('close');
-					}
-					else{
-						$("#btn"+btn_id).removeClass('disabled');
-						M.toast({html: response});
-					}
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
-		}, 2000);
-	}
-	
-	function cancelRequest(user_id, btn_id){
-		
-		$("#btn"+btn_id).addClass('disabled');
-		
-		setTimeout(function(){
-			$.ajax({
-				url: './cancelRequest',
-				type: 'POST',
-				data: { user_id: user_id },
-				success: function(response){
-					if(response == ""){
-						$("#btn"+btn_id).attr("href", "javascript:addFriend('"+user_id+"', '"+btn_id+"')").removeClass('disabled');
-						$("#btn"+btn_id+" i").html('person_add');
-					}
-					else{
-						$("#btn"+btn_id).removeClass('disabled');
-						M.toast({html: response});
-					}
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
-		}, 2000);
-	}
-	
-	function unfriend(user_id, btn_id){
-		
-		$("#btn"+btn_id).addClass('disabled');
-		
-		setTimeout(function(){
-			$.ajax({
-				url: './unfriend',
-				type: 'POST',
-				data: { user_id: user_id },
-				success: function(response){
-					if(response == ""){
-						$("#btn"+btn_id).attr("href", "javascript:addFriend('"+user_id+"', '"+btn_id+"')").removeClass('disabled');
-						$("#btn"+btn_id+" i").html('person_add');
-					}
-					else{
-						$("#btn"+btn_id).removeClass('disabled');
-						M.toast({html: response});
-					}
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
-		}, 2000);
-	}
-	
-	function confirmRequest(user_id, btn_id){
-		
-		$("#btn"+btn_id).addClass('disabled');
-		
-		setTimeout(function(){
-			$.ajax({
-				url: './confirmRequest',
-				type: 'POST',
-				data: { user_id: user_id },
-				success: function(response){
-					if(response == ""){
-						$("#btn"+btn_id).attr("href", "javascript:unfriend('"+user_id+"', '"+btn_id+"')").removeClass('disabled');
-						$("#btn"+btn_id+" i").html('remove_circle_outline');
-					}
-					else{
-						$("#btn"+btn_id).removeClass('disabled');
-						M.toast({html: response});
-					}
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
-		}, 2000);
-	}
+			else
+				lastPostId = 0;
+			
+			console.log(lastPostId);
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+function fetchNotifications(){
+	$.ajax({
+		url: './unreadNotifications',
+		type: "POST",
+		data: {},
+		success: function(response){
+			if(response == ""){
+				$(".notifications-bubble").html("No new notifications.");
+				$(".notifications-count").html("(0)");
+			}
+			else{
+				$(".notifications-bubble").html(response);
+				$(".notifications-count").html("("+$(".notification").length+")");
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+
+function fetchRequests(){
+	$.ajax({
+		url: './requests',
+		type: "POST",
+		data: {},
+		success: function(response){
+			if(response == ""){
+				$(".requests-bubble").html("No new requests.");
+				$(".requests-count").html("(0)");
+			}
+			else{
+				$(".requests-bubble").html(response);
+				$(".requests-count").html("("+$(".request").length+")");
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+
+function likePost(post_id){
+	$.ajax({
+		url: './likePost',
+		type: "POST",
+		data: { post_id: post_id },
+		success: function(response){
+			if(response == ""){
+				$("#likeBtn_"+post_id).addClass("liked").attr("href", "javascript:unlikePost('"+post_id+"')");
+				var html = $("#likeBtn_"+post_id).html();
+				var likes = (html.substr(html.indexOf('(')+1));
+				//likes = likes.substr(likes.length-1);
+				$("#likeBtn_"+post_id).html("Likes ("+(parseInt(likes)+1)+")");
+			}
+			else{
+				M.toast({html: response});
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
+
+function unlikePost(post_id){
+	$.ajax({
+		url: './unlikePost',
+		type: "POST",
+		data: { post_id: post_id },
+		success: function(response){
+			if(response == ""){
+				$("#likeBtn_"+post_id).removeClass("liked").attr("href", "javascript:likePost('"+post_id+"')");
+				var html = $("#likeBtn_"+post_id).html();
+				var likes = (html.substr(html.indexOf('(')+1));
+				//likes = likes.substr(likes.length-1);
+				$("#likeBtn_"+post_id).html("Likes ("+(parseInt(likes)-1)+")");
+			}
+			else{
+				M.toast({html: response});
+			}
+		}, 
+		error: function(err){
+			M.toast({html: "Something went wrong!"});
+		}
+	});
+}
 </script>
 </body>
 </html>

@@ -71,6 +71,69 @@
 		<url-pattern>/unfriend</url-pattern>
 	</servlet-mapping>	
 	
+	<servlet>
+		<servlet-name>Info</servlet-name>
+		<servlet-class>InfoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Info</servlet-name>
+		<url-pattern>/userInfo</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Post</servlet-name>
+		<servlet-class>PostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Post</servlet-name>
+		<url-pattern>/post</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FetchPosts</servlet-name>
+		<servlet-class>FetchPostsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FetchPosts</servlet-name>
+		<url-pattern>/fetchPosts</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Like</servlet-name>
+		<servlet-class>LikeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Like</servlet-name>
+		<url-pattern>/likePost</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Unlike</servlet-name>
+		<servlet-class>UnlikeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Unlike</servlet-name>
+		<url-pattern>/unlikePost</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>UnreadNotifications</servlet-name>
+		<servlet-class>UnreadNotificationsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UnreadNotifications</servlet-name>
+		<url-pattern>/unreadNotifications</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>Requests</servlet-name>
+		<servlet-class>RequestsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Requests</servlet-name>
+		<url-pattern>/requests</url-pattern>
+	</servlet-mapping>	
+	
 	
 </web-app>
 	
